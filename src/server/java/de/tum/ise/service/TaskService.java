@@ -20,14 +20,26 @@ public class TaskService {
 
     public Optional<Task> findTaskById(UUID taskId) {
         // TODO 1.1: Find and return a task by its ID using a stream.
-        return Optional.empty();
+        return tasks.stream().filter(task -> task.getId().equals(taskId)).findFirst();
     }
 
     public Task saveTask(Task task) {
         // TODO 1.1: Implement the logic to save a task.
         // If the task's ID is null, it's a new task. Generate a new UUID, set it, and add the task to the list.
         // If the task's ID is not null, it's an update. Find the existing task and update its properties.
-        return null;
+        if (task.getId() == null) {
+            task.setId(UUID.randomUUID());
+            tasks.add(task);
+            return task;
+        }
+        else {
+            return findTaskById(task.getId()).map(existingTask -> {
+                existingTask.setTitle(task.getTitle());
+                existingTask.setDescription(task.getDescription());
+                existingTask.setCompleted(task.isCompleted());
+                return existingTask;
+            }).orElse(null);
+        }
     }
 
     public void deleteTask(UUID taskId) {
