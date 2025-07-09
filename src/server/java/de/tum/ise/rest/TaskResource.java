@@ -40,7 +40,7 @@ public class TaskResource {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
     // TODO 1.1: GET /tasks/{taskId}: Get a single task by its ID.
-    @GetMapping
+    @GetMapping("/{taskId}")
     public ResponseEntity<Task> getTaskById(@PathVariable UUID taskId) {
 //        return ResponseEntity.ok()
         return taskService.findTaskById(taskId)
