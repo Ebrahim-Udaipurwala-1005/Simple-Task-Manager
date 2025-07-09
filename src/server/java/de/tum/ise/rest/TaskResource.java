@@ -35,7 +35,7 @@ public class TaskResource {
     }
 
     // TODO 1.1: GET /tasks: Get all tasks.
-    @GetMapping("/{taskId}")
+    @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
@@ -49,7 +49,7 @@ public class TaskResource {
     }
 
     // TODO 1.3: PUT /tasks/{taskId}: Update an existing task.
-    @PutMapping
+    @PutMapping("/{taskId}")
     public ResponseEntity<Task> updateTask(@PathVariable UUID taskId, @RequestBody Task task) {
         if (task.getId().equals(taskId)) {
             return ResponseEntity.badRequest().build();
