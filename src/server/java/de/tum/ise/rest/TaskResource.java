@@ -51,7 +51,7 @@ public class TaskResource {
     // TODO 1.3: PUT /tasks/{taskId}: Update an existing task.
     @PutMapping("/{taskId}")
     public ResponseEntity<Task> updateTask(@PathVariable UUID taskId, @RequestBody Task task) {
-        if (task.getId().equals(taskId)) {
+        if (!task.getId().equals(taskId)) {
             return ResponseEntity.badRequest().build();
         }
         else {
