@@ -15,7 +15,7 @@ public class TaskService {
 
     public List<Task> getAllTasks() {
         // TODO 1.2: Return a copy of the tasks list to prevent modification from outside.
-        return null;
+        return new ArrayList<>(tasks);
     }
 
     public Optional<Task> findTaskById(UUID taskId) {

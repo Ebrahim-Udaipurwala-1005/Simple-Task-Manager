@@ -41,15 +41,23 @@ public class TaskController {
     public void createTask(Task task, Consumer<List<Task>> tasksConsumer) {
         // TODO 2.2: Make a POST request to /tasks with the new task in the body.
         // On success, add the returned task (with its new ID) to the local list and call the consumer.
+        webClient.post().uri("/tasks").bodyValue(task).retrieve().bodyToMono(Task.class).onErrorStop().subscribe(newTask -> {
+            tasks.add(newTask);
+            tasksConsumer.accept(new ArrayList<>(tasks));
+        });
     }
 
     public void updateTask(Task task, Consumer<List<Task>> tasksConsumer) {
         // TODO 2.3: Make a PUT request to /tasks/{taskId} with the updated task in the body.
         // On success, replace the old task in the local list with the updated one and call the consumer.
+        webClient.put().uri("/tasks/" + task.getId()).bodyValue(task).retrieve().bodyToMono(Task.class).onErrorStop().subscribe(newTask -> {tasks.replaceAll(t -> t.getId().equals(task.getId()) ? newTask : t);
+        });
     }
 
     public void deleteTask(Task task, Consumer<List<Task>> tasksConsumer) {
         // TODO 2.4: Make a DELETE request to /tasks/{taskId}.
         // On success, remove the task from the local list and call the consumer.
+        webClient.delete().uri("/tasks/" + task.getId()).retrieve().toBodilessEntity().onErrorStop().subscribe(v -> {tasks.removeIf(t -> t.getId().equals(task.getId()));
+        tasksConsumer.accept(new ArrayList<>(tasks));});
     }
 }
