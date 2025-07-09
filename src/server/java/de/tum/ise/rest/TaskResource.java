@@ -35,7 +35,7 @@ public class TaskResource {
     }
 
     // TODO 1.1: GET /tasks: Get all tasks.
-    @GetMapping
+    @GetMapping("/{taskId}")
     public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
@@ -49,6 +49,26 @@ public class TaskResource {
     }
 
     // TODO 1.3: PUT /tasks/{taskId}: Update an existing task.
+    @PutMapping
+    public ResponseEntity<Task> updateTask(@PathVariable UUID taskId, @RequestBody Task task) {
+        if (task.getId().equals(taskId)) {
+            return ResponseEntity.badRequest().build();
+        }
+        else {
+            Task updatedTask = taskService.saveTask(task);
+            if (updatedTask != null) {
+                return ResponseEntity.ok(updatedTask);
+            }
+            else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+    }
 
     // TODO 1.4: DELETE /tasks/{taskId}: Delete a task.
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable UUID taskId) {
+        taskService.deleteTask(taskId);
+        return ResponseEntity.noContent().build();
+    }
 }

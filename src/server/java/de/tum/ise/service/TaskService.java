@@ -44,5 +44,6 @@ public class TaskService {
 
     public void deleteTask(UUID taskId) {
         // TODO 1.4: Remove the task with the given ID from the list.
+        tasks.removeIf(task -> task.getId().equals(taskId));
     }
 }
