@@ -64,6 +64,7 @@ public class TaskController {
                 .onErrorStop()
                 .subscribe(newTask -> {
                     tasks.replaceAll(t -> t.getId().equals(task.getId()) ? newTask : t);
+                    tasksConsumer.accept(new ArrayList<>(tasks));
                 });
     }
 
