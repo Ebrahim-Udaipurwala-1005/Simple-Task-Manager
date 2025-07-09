@@ -14,14 +14,28 @@ public class TaskController {
 
     // TODO 2.1: Add attributes for the WebClient and a local list of tasks.
     // Then, implement the constructor to initialize them.
+    private final WebClient webClient;
+    private List<Task> tasks;
 
     public TaskController() {
         // TODO: 2.1
+        webClient = WebClient.builder().baseUrl("http://localhost:8080").build();
+        tasks = new ArrayList<>(tasks);
     }
 
     public void getAllTasks(Consumer<List<Task>> tasksConsumer) {
         // TODO 2.1: Make a GET request to /tasks.
         // On success, clear the local list, add all received tasks, and call the consumer.
+        webClient.get()
+                .uri("/tasks")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<Task>>() {})
+                .onErrorStop()
+                .subscribe(newTasks -> {
+                    tasks.clear();
+                    tasks.addAll(newTasks);
+                    tasksConsumer.accept(tasks);
+                });
     }
 
     public void createTask(Task task, Consumer<List<Task>> tasksConsumer) {
