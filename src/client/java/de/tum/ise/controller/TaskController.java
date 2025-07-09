@@ -20,7 +20,7 @@ public class TaskController {
     public TaskController() {
         // TODO: 2.1
         webClient = WebClient.builder().baseUrl("http://localhost:8080").build();
-        tasks = new ArrayList<>(tasks);
+        tasks = new ArrayList<>();
     }
 
     public void getAllTasks(Consumer<List<Task>> tasksConsumer) {
