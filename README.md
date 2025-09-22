@@ -1,6 +1,6 @@
 # Simple Task Manager
 
-This project is a simple task manager application that demonstrates the fundamental **CRUD (Create, Read, Update, Delete)** operations. It's built with a client-server architecture using **Spring Boot** for the backend and **JavaFX** for the frontend.
+Developed as part of the **INHN0006 Introduction to Software Engineering** course under the guidance of Prof. Dr. Stefan Wagner, this project, "Simple Task Manager," is designed to provide hands-on experience with fundamental software engineering concepts. The application follows a classic client-server model to demonstrate the four essential **CRUD (Create, Read, Update, Delete)** operations. The server-side is a robust RESTful API built with **Spring Boot**, while the client-side is a dynamic GUI application implemented in **JavaFX**. This architecture highlights the principles of layered design and network communication in a practical context.
 
 ---
 
